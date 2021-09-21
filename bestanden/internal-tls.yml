@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: nlx-internal-[namespace]
+spec:
+    commonName: EnableU
+    dnsNames:
+      - nlx-inway.[namespace].svc.cluster.local
+      - nlx-outway.[namespace].svc.cluster.local
+      - nlx-management-api.[namespace].svc.cluster.local
+      - nlx-management-ui.[namespace].svc.cluster.local
+    duration: 8760h  # 1 year
+    renewBefore: 720h  # 30 days
+    privateKey:
+        size: 4096
+    issuerRef:
+        name: nlx-internal
+        kind: ClusterIssuer
+    secretName: [namespace]-nlx-internal-tls
